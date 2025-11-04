@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { tasksAPI } from '../../services/api';
-import { PRIORITY_LABELS } from '../../utils/constants';
+import { PRIORITY_LABELS, PRIORITY_COLORS } from '../../utils/constants'; // ✅ Added this
 
 const TaskForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const isEdit = Boolean(id);
-  
+
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -31,7 +31,7 @@ const TaskForm = () => {
         setFormData({
           title: task.title,
           description: task.description,
-          dueDate: task.dueDate.split('T')[0], // Format for date input
+          dueDate: task.dueDate.split('T')[0],
           priority: task.priority
         });
       }
@@ -47,7 +47,6 @@ const TaskForm = () => {
       ...prev,
       [name]: value
     }));
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -58,43 +57,29 @@ const TaskForm = () => {
 
   const validateForm = () => {
     const newErrors = {};
-
-    if (!formData.title.trim()) {
-      newErrors.title = 'Title is required';
-    }
-
-    if (!formData.description.trim()) {
-      newErrors.description = 'Description is required';
-    }
-
+    if (!formData.title.trim()) newErrors.title = 'Title is required';
+    if (!formData.description.trim()) newErrors.description = 'Description is required';
     if (!formData.dueDate) {
       newErrors.dueDate = 'Due date is required';
     } else if (new Date(formData.dueDate) < new Date().setHours(0, 0, 0, 0)) {
       newErrors.dueDate = 'Due date cannot be in the past';
     }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setLoading(true);
-
     try {
       let response;
-      
       if (isEdit) {
         response = await tasksAPI.updateTask(id, formData);
       } else {
         response = await tasksAPI.createTask(formData);
       }
-
       if (response.data.success) {
         navigate('/');
       }
@@ -158,22 +143,36 @@ const TaskForm = () => {
             {errors.dueDate && <span className="error-message">{errors.dueDate}</span>}
           </div>
 
+          {/* ✅ NEW PRIORITY UI */}
           <div className="form-group">
-            <label htmlFor="priority">Priority</label>
-            <select
-              id="priority"
-              name="priority"
-              value={formData.priority}
-              onChange={handleChange}
-            >
-              {Object.entries(PRIORITY_LABELS).map(([value, label]) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
+            <label>Priority</label>
+            <div className="priority-options">
+              {['high', 'medium', 'low'].map(priority => (
+                <div
+                  key={priority}
+                  className={`priority-option ${priority} ${formData.priority === priority ? 'selected' : ''}`}
+                  onClick={() => handleChange({
+                    target: { name: 'priority', value: priority }
+                  })}
+                >
+                  <div
+                    className="priority-indicator"
+                    style={{
+                      backgroundColor: PRIORITY_COLORS[priority],
+                      width: '20px',
+                      height: '20px',
+                      borderRadius: '50%',
+                      margin: '0 auto 0.5rem',
+                      border: formData.priority === priority ? '2px solid white' : '2px solid transparent',
+                      boxShadow: formData.priority === priority ? '0 0 0 2px currentColor' : 'none'
+                    }}
+                  ></div>
+                  {PRIORITY_LABELS[priority]}
+                </div>
               ))}
-            </select>
+            </div>
           </div>
-        </div>
+        </div> {/* ✅ properly closed form-row */}
 
         {errors.submit && (
           <div className="error-message submit-error">{errors.submit}</div>
@@ -185,10 +184,9 @@ const TaskForm = () => {
             disabled={loading}
             className="btn btn-primary"
           >
-            {loading 
-              ? (isEdit ? 'Updating...' : 'Creating...') 
-              : (isEdit ? 'Update Task' : 'Create Task')
-            }
+            {loading
+              ? (isEdit ? 'Updating...' : 'Creating...')
+              : (isEdit ? 'Update Task' : 'Create Task')}
           </button>
           <Link to="/" className="btn btn-secondary">
             Cancel

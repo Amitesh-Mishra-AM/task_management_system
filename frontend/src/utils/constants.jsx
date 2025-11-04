@@ -25,3 +25,8 @@ export const STATUS_LABELS = {
   [STATUS.PENDING]: 'Pending',
   [STATUS.COMPLETED]: 'Completed'
 };
+
+export const STATUS_COLORS = {
+  [STATUS.PENDING]: '#ffc107',
+  [STATUS.COMPLETED]: '#28a745'
+};

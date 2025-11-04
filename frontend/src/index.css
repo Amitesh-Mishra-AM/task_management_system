@@ -617,6 +617,228 @@ body {
   }
 }
 
+/* Priority Board Styles */
+.priority-board {
+  margin-top: 2rem;
+}
+
+.board-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.board-instructions {
+  color: #6c757d;
+  font-style: italic;
+}
+
+.board-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.priority-column {
+  background: #f8f9fa;
+  border-radius: 8px;
+  min-height: 600px;
+  border: 2px dashed transparent;
+  transition: border-color 0.2s;
+}
+
+.priority-column.drag-over {
+  border-color: #3498db;
+  background-color: #e3f2fd;
+}
+
+.column-header {
+  padding: 1rem;
+  border-radius: 6px 6px 0 0;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.column-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.task-count {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+}
+
+.tasks-container {
+  padding: 1rem;
+  min-height: 500px;
+}
+
+.board-task-card {
+  background: white;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #3498db;
+  cursor: move;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.board-task-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.board-task-card.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+.board-task-card .task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.board-task-card h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #2c3e50;
+  flex: 1;
+}
+
+.status-badge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-badge.completed {
+  background-color: #d1edff;
+  color: #0c5460;
+}
+
+.board-task-card .task-description {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.board-task-card .task-meta {
+  margin-bottom: 0.75rem;
+}
+
+.board-task-card .due-date {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.board-task-card .task-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.empty-column {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+}
+
+.drop-hint {
+  font-size: 0.875rem;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+/* Drag and Drop Visual Feedback */
+.priority-column.drop-zone {
+  border-color: #3498db;
+  background-color: #e3f2fd;
+}
+
+/* Enhanced Task Form for Priority */
+.priority-options {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.priority-option {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid #dee2e6;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.priority-option:hover {
+  border-color: #adb5bd;
+}
+
+.priority-option.selected {
+  border-color: currentColor;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.priority-option.high {
+  color: #dc3545;
+}
+
+.priority-option.medium {
+  color: #ffc107;
+}
+
+.priority-option.low {
+  color: #28a745;
+}
+
+/* Enhanced Task Cards with Priority Borders */
+.task-card.high-priority {
+  border-left-color: #dc3545;
+}
+
+.task-card.medium-priority {
+  border-left-color: #ffc107;
+}
+
+.task-card.low-priority {
+  border-left-color: #28a745;
+}
+
+/* Responsive Design for Board */
+@media (max-width: 1024px) {
+  .board-columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .board-columns {
+    grid-template-columns: 1fr;
+  }
+  
+  .priority-column {
+    min-height: 400px;
+  }
+}
+
 
 /* Utility Classes */
 .text-center {

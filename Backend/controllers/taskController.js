@@ -67,9 +67,44 @@ const getTask = async (req, res) => {
 // @desc    Create new task
 // @route   POST /api/tasks
 // @access  Private
+// const createTask = async (req, res) => {
+//   try {
+//     const { title, description, dueDate, priority } = req.body;
+
+//     const task = await Task.create({
+//       title,
+//       description,
+//       dueDate,
+//       priority,
+//       user: req.user.id
+//     });
+
+//     res.status(201).json({
+//       success: true,
+//       data: task
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: 'Server error',
+//       error: error.message
+//     });
+//   }
+// };
+
+// UPDATED
+// In createTask and updateTask, add due date validation
 const createTask = async (req, res) => {
   try {
     const { title, description, dueDate, priority } = req.body;
+
+    // Validate due date is not in the past
+    if (new Date(dueDate) < new Date().setHours(0, 0, 0, 0)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Due date cannot be in the past'
+      });
+    }
 
     const task = await Task.create({
       title,

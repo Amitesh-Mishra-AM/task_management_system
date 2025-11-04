@@ -12,7 +12,7 @@ const TaskItem = ({ task, onStatusUpdate, onDelete }) => {
   };
 
   return (
-    <div className={`task-item ${task.status}`}>
+    <div className={`task-item ${task.status} ${task.priority}-priority`}>
       <div className="task-content">
         <div className="task-header">
           <h4>
