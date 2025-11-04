@@ -26,10 +26,11 @@ A full-stack MERN application for managing tasks with priority management and us
 1. Navigate to backend directory
 2. Run `npm install`
 3. Create `.env` file with:
-MONGODB_URI=mongodb://localhost:27017/taskmanagement
+`
+MONGODB_URI= mongodb://localhost:27017/taskmanagement
 JWT_SECRET=your_jwt_secret
 PORT=500
-
+`
 4. Run `npm start`
 
 ## API Endpoints
