@@ -10,7 +10,7 @@ const TaskList = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [view, setView] = useState('list'); // 'list' or 'board'
+  const [view, setView] = useState('list');
 
   const fetchTasks = async (page = 1) => {
     try {
@@ -40,7 +40,6 @@ const TaskList = () => {
     try {
       const response = await tasksAPI.updateStatus(taskId, newStatus);
       if (response.data.success) {
-        // Update the task in the local state
         setTasks(tasks.map(task => 
           task._id === taskId ? response.data.data : task
         ));

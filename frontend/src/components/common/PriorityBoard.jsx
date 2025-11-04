@@ -11,12 +11,10 @@ const PriorityBoard = ({ tasks, onTaskUpdate }) => {
     [PRIORITY.MEDIUM]: tasks.filter(task => task.priority === PRIORITY.MEDIUM),
     [PRIORITY.LOW]: tasks.filter(task => task.priority === PRIORITY.LOW),
   };
-
   const handleDragStart = (e, task) => {
     setDraggedTask(task);
     e.dataTransfer.effectAllowed = 'move';
   };
-
   const handleDragOver = (e, priority) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
@@ -34,7 +32,6 @@ const PriorityBoard = ({ tasks, onTaskUpdate }) => {
     }
     setDraggedTask(null);
   };
-
   const handleStatusToggle = async (taskId, currentStatus) => {
     try {
       const newStatus = currentStatus === 'pending' ? 'completed' : 'pending';
@@ -44,7 +41,6 @@ const PriorityBoard = ({ tasks, onTaskUpdate }) => {
       console.error('Error updating status:', error);
     }
   };
-
   const PriorityColumn = ({ priority, tasks }) => (
     <div 
       className="priority-column"
@@ -107,7 +103,6 @@ const PriorityBoard = ({ tasks, onTaskUpdate }) => {
       </div>
     </div>
   );
-
   return (
     <div className="priority-board">
       <div className="board-header">

@@ -1,16 +1,12 @@
 import axios from 'axios';
 
 const API_URL = "http://localhost:5000/api";
-
-// Create axios instance
 const api = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
-
-// Request interceptor to add auth token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -23,8 +19,6 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
-// Response interceptor to handle errors
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -35,14 +29,12 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
 // Auth API
 export const authAPI = {
   login: (credentials) => api.post('/auth/login', credentials),
   register: (userData) => api.post('/auth/register', userData),
   getMe: () => api.get('/auth/me'),
 };
-
 // Tasks API
 export const tasksAPI = {
   getTasks: (page = 1, limit = 10) => api.get(`/tasks?page=${page}&limit=${limit}`),

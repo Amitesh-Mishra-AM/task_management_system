@@ -25,7 +25,6 @@ const TaskDetails = () => {
       setLoading(false);
     }
   };
-
   const handleStatusUpdate = async (newStatus) => {
     try {
       const response = await tasksAPI.updateStatus(id, newStatus);
@@ -60,7 +59,6 @@ const TaskDetails = () => {
       }
     }
   };
-
   if (loading) {
     return <div className="loading">Loading task details...</div>;
   }
@@ -86,7 +84,7 @@ const TaskDetails = () => {
             onClick={() => handleStatusUpdate(
               task.status === 'pending' ? 'completed' : 'pending'
             )}
-            className={`btn ${task.status === 'pending' ? 'btn-success' : 'btn-warning'}`}
+            className={`btn ${task.status === 'pending' ? 'btn-success':'btn-warning'}`}
           >
             {task.status === 'pending' ? 'Mark Complete' : 'Mark Pending'}
           </button>
@@ -114,7 +112,6 @@ const TaskDetails = () => {
             Due: {new Date(task.dueDate).toLocaleDateString()}
           </span>
         </div>
-
         <h1>{task.title}</h1>
         
         <div className="description-section">

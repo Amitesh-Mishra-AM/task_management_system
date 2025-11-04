@@ -142,8 +142,6 @@ const TaskForm = () => {
             />
             {errors.dueDate && <span className="error-message">{errors.dueDate}</span>}
           </div>
-
-          {/* ✅ NEW PRIORITY UI */}
           <div className="form-group">
             <label>Priority</label>
             <div className="priority-options">
@@ -172,7 +170,7 @@ const TaskForm = () => {
               ))}
             </div>
           </div>
-        </div> {/* ✅ properly closed form-row */}
+        </div>
 
         {errors.submit && (
           <div className="error-message submit-error">{errors.submit}</div>

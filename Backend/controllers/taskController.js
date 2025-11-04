@@ -63,37 +63,6 @@ const getTask = async (req, res) => {
     });
   }
 };
-
-// @desc    Create new task
-// @route   POST /api/tasks
-// @access  Private
-// const createTask = async (req, res) => {
-//   try {
-//     const { title, description, dueDate, priority } = req.body;
-
-//     const task = await Task.create({
-//       title,
-//       description,
-//       dueDate,
-//       priority,
-//       user: req.user.id
-//     });
-
-//     res.status(201).json({
-//       success: true,
-//       data: task
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       success: false,
-//       message: 'Server error',
-//       error: error.message
-//     });
-//   }
-// };
-
-// UPDATED
-// In createTask and updateTask, add due date validation
 const createTask = async (req, res) => {
   try {
     const { title, description, dueDate, priority } = req.body;

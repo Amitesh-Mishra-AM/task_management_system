@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-
 const Header = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -10,7 +9,6 @@ const Header = () => {
     logout();
     navigate('/login');
   };
-
   return (
     <header className="header">
       <div className="container">
@@ -38,5 +36,4 @@ const Header = () => {
     </header>
   );
 };
-
 export default Header;
